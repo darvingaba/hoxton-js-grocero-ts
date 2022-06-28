@@ -1,16 +1,17 @@
 import "./reset.css";
 import "./index.css";
-type State = {
+
+type StoreItems = {
   id: number;
   name: string;
   price: number;
   itemNumber: number;
 };
 type state = {
-  items: State[];
+  items: StoreItems[];
 };
 
-let state: State = {
+let state: state = {
   items: [
     {
       id: 1,
@@ -75,21 +76,21 @@ let state: State = {
   ],
 };
 
-function getItemImagePath(item) {
+function getItemImagePath(item: { id: StoreItems; name: StoreItems; }) {
   let id = String(item.id).padStart(3, "0");
   return `/icons/${id}-${item.name}.svg`;
 }
 
-function increaseQuantity(item) {
+function increaseQuantity(item: StoreItems) {
   return item.itemNumber++;
 }
-function decreaseQuantity(item) {
+function decreaseQuantity(item: StoreItems) {
   if (item.itemNumber > 0) {
     item.itemNumber--;
   }
 }
 
-function createItem(item) {
+function createItem(item:StoreItems) {
   let liEl = document.createElement("li");
   let divEl = document.createElement("div");
   divEl.className = "store--item-icon";
@@ -110,7 +111,7 @@ function createItem(item) {
   liEl.append(divEl, buttonEl);
 
   let storeUl = document.querySelector(".item-list.store--item-list");
-  storeUl.append(liEl);
+  storeUl?.append(liEl);
 }
 function getItems() {
   return state.items.filter((item) => item.itemNumber > 0);
@@ -123,7 +124,7 @@ for (let item of getItems()) {
   cartItem(item);
 }
 
-function cartItem(item) {
+function cartItem(item: StoreItems) {
   let cartUl = document.querySelector(".item-list.cart--item-list");
   cartUl.textContent = "";
   let liEl = document.createElement("li");
@@ -159,10 +160,10 @@ function cartItem(item) {
   cartUl.append(liEl);
 }
 
-function getPrice(item) {
+function getPrice(item: StoreItems) {
   return item.price;
 }
-function getNumberOfItems(item) {
+function getNumberOfItems(item: StoreItems) {
   return item.itemNumber;
 }
 function totalPrice() {
